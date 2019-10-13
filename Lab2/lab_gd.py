@@ -54,7 +54,7 @@ def quad1(x_o=-9.0,a=1.0,eta=0.1,threshold=0.01,maxiter=1000,anim=1):
             print('Diverged')
             break
         
-    # My addition for plotting with anim = 0
+    # MINE for plotting with anim = 0
         if not anim:
             plt.plot(x0_list, f_list, 'r.-')
 
