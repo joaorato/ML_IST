@@ -1,0 +1,18 @@
+2.1 Minimization of functions of one variable
+
+2 - Observing Table 1, one can see that the relationship between a and eta is a = 1/eta.
+This can be proven by knowing that, with f = a*x^2/2, one has grad(f) = a*x.
+
+From the iterative equation and knowing that the minimum value for this class of functions happens at x = 0, the equation to solve is:
+
+x_(n+1) = x_n - eta*a*x_n <=> 0 = x_n - eta*a*x_n <=> (with x_n != 0) eta*a = 1 <=> a = 1/eta, QED.
+
+3 - Again, by observing the values in Table 1, it is possible to state that the relation is a = 2/eta.
+This is proven by knowing that the algorithm diverges when the step size (|x_(n+1) - x_n|) is double the separation between x_n and the x corresponding to the function minimum (in this case x = 0).
+So, the threshold is defined when this limit starts:
+
+|x_(n+1) - x_n| = 2*x_n <=> |-eta*a*x_n| = 2*x_n <=> (with x_n != 0) a = 2/eta, QED
+
+4 - Other than the fastest conversion and divergence threshold values, it is visible that the step size eta is highly influential in the convergence of the method.
+An increase in the 2nd derivative of the function, naturally, makes it narrower and, thus, the method diverges for smaller step sizes.
+Moreover, it will converge faster for the smallest step size (eta = 0.001).
