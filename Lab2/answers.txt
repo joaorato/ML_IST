@@ -1,3 +1,5 @@
+2. The gradient descent method
+
 2.1 Minimization of functions of one variable
 
 2 - Observing Table 1, one can see that the relationship between a and eta is a = 1/eta.
@@ -16,3 +18,63 @@ So, the threshold is defined when this limit starts:
 4 - Other than the fastest conversion and divergence threshold values, it is visible that the step size eta is highly influential in the convergence of the method.
 An increase in the 2nd derivative of the function, naturally, makes it narrower and, thus, the method diverges for smaller step sizes.
 Moreover, it will converge faster for the smallest step size (eta = 0.001).
+
+5 - The fastest optimization occurs for 1 step.
+The condition for eta so that this happens for a function of one variable can be deduced by substituting:
+x_(n+1) = x_* -> x value for the minimum of f; and x_n = x_0 -> initial condition.
+These changes are made so that a conversion is reached in 1 step. So, the equation to solve is: 
+
+|x_* - x_0| = eta*grad(f(x_0)) <=> eta = |x_* - x_0|/grad(f(x_0)).
+
+This also means that for grad(f(x_0)) = 0, there is trouble. In the case where x_0 sits in a maximum, saddle point or local minimum, there is no way to converge.
+
+Note: For more complex funtions (for example, with a "hill" to the left of the valley when x_0 is to the left of both) it never converges in one step.
+ 
+2.2. Minimization of functions of more than one variable
+
+2 - It is visible in Table 2 that the amount of iterations for smaller step size is the same for both a = 2 and a = 20.
+This happens because the optimization algorithm for this function can be seen as an individual optimization in both directions (x_1 and x_2) which happen simultaneously.
+Thus, one can say that for smaller eta (0.01 and 0.03) the optimization in the x_2 direction is the dominant one: it takes more iterations to optimize.
+And, since that part of the function is the same for a = 2 and a = 20, the total number of iterations is going to be the same.
+Nevertheless, this behaviour begins to disappear for increasing etas since the width of the parabola in x_1 comes into play.
+For a narrower parabola (a = 20) larger step sizes make the algorithm diverge sooner than for a = 2, just as before.
+
+The minimum number of iterations for a = 2 occured with eta = 0.6 and 5 iterations were made.
+For a = 20 it happened for eta = 0.092 and 44 iterations were made.
+
+For greater values of "a" (narrower valleys), the minimum number of iterations will be greater than for a wider counterpart.
+As such, it makes sense that there are less iterations in the best case scenario of a = 2 than that of a = 20.
+This is because before any of the algorithms diverge they share the same number of iterations.
+Thus, if one would find the smallest number of iterations for a = 20, that would be the same number for a = 2.
+Therefore, after the divergence of the a = 20 case, it is possible to further increase the step size in order to reduce the number of iterations for a = 2.
+To emphasize, a = 20 requires a smaller step size to converge to the narrow valley (x_1 direction) and then it has to "travel" in the x_2 direction with smaller steps (i.e. in more iterations).
+
+
+3 - No. It is not possible to reach the minimum in one iteration if the initial gradient is pointing in a different direction than that of the vector defined by the initial point (x1_0, x2_0) and the minimum.
+
+3. Momentum term
+
+2 - Greater values of alpha make the divergence threshold happen for greater step sizes.
+A justification for this is the dampening of oscillations that the momentum method imposes.
+In a case where the algorithm would diverge without the momentum term (alpha = 0),
+the x_(n+1) would appear in the opposite side of x_n in relation to the minimum.
+However, by using and alpha != 0, one introduces inertia into the equation,
+making the next step have the influence of previous iterations.
+This makes the oscillation disappear as, in the previous example,
+x_(n+1) would appear closer to the minimum (by a smaller distance than that of x_n).
+Obviously, divergences still occur for step sizes that are too large compared to the inertial term.
+
+4. Adaptive step sizes
+
+2 - As it can be seen in Table 4, by moving just 20% around the optimal eta (for the correspondent optimal alpha)
+one gets 200+ iterations. Bearing in mind that the best eta was found to be 0.02, the referred percentage is a small value.
+This means that, only by deviating a few milesimals from the main value, the eta would be considered bad.
+Then, it is natural that it took some test until a satisfying eta value was found.
+
+5. Final Remarks
+
+1 - Overall, the Momentum method has bigger potential for optimization since one can have less iterations using it.
+On the other hand, the Adaptive step size algorithm might not yield as little iterations but is more robust,
+meaning that it is less susceptible to divergences.
+In other words, the Adaptive step size method should have a smaller variance in regards to the number of iterations.
+Thus, for a more complex function, the Adaptive step size should be a safer choice to obtain a reliable convergence.
