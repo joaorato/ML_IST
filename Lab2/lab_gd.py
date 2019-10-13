@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-"""
+
 ###Quad1
 def quad1(x_o=-9.0,a=1.0,eta=0.1,threshold=0.01,maxiter=1000,anim=1):
     it = 0
@@ -68,10 +68,10 @@ def quad1(x_o=-9.0,a=1.0,eta=0.1,threshold=0.01,maxiter=1000,anim=1):
         return x_o
 
 print('****STARTING PART 1****')
-x_min = quad1(a=1, eta=1, anim=0)
+x_min = quad1(a=5, eta=0.4, anim=0)
 print('The estimated value is %f' %(x_min))
 
-"""
+
 print('****STARTING PART 2****')
 
 ###Quad2
@@ -150,9 +150,9 @@ print('The estimated value is %s' %(x_min))
 """
 
 
-print('****STARTING PART 2 WITH MOMENTUM****')
-x_min = quad2(a=20.0,eta=1,anim = 0,alpha=0.9)
-print('The estimated value is %s' %(x_min))
+#print('****STARTING PART 2 WITH MOMENTUM****')
+#x_min = quad2(a=20.0,eta=1,anim = 0,alpha=0.9)
+#print('The estimated value is %s' %(x_min))
 
 """
 def rosen(x_o=[-1.5,1.0],a=20.0,eta=0.001,threshold=0.001,maxiter=1000,alpha=0.0,anim = 1,up = 1,down = 1,reduce = 1):
