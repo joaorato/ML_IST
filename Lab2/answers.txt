@@ -28,6 +28,7 @@ Div Threshold	4	2	1	0.4
 Note: div* means that the threshold was found for this pair of values. The method is oscillating, not converging nor diverging.	
 
 
+
 2 - Observing Table 1, one can see that the relationship between a and eta is a = 1/eta.
 This can be proven by knowing that, with f = a*x^2/2, one has grad(f) = a*x.
 
@@ -35,15 +36,21 @@ From the iterative equation and knowing that the minimum value for this class of
 
 x_(n+1) = x_n - eta*a*x_n <=> 0 = x_n - eta*a*x_n <=> (with x_n != 0) eta*a = 1 <=> a = 1/eta, QED.
 
+
+
 3 - Again, by observing the values in Table 1, it is possible to state that the relation is a = 2/eta.
 This is proven by knowing that the algorithm diverges when the step size (|x_(n+1) - x_n|) is double the separation between x_n and the x corresponding to the function minimum (in this case x = 0).
 So, the threshold is defined when this limit starts:
 
 |x_(n+1) - x_n| = 2*x_n <=> |-eta*a*x_n| = 2*x_n <=> (with x_n != 0) a = 2/eta, QED
 
+
+
 4 - Other than the fastest conversion and divergence threshold values, it is visible that the step size eta is highly influential in the convergence of the method.
 An increase in the 2nd derivative of the function, naturally, makes it narrower and, thus, the method diverges for smaller step sizes.
 Moreover, it will converge faster for the smallest step size (eta = 0.001).
+
+
 
 5 - The fastest optimization occurs for 1 step.
 The condition for eta so that this happens for a function of one variable can be deduced by substituting:
@@ -54,8 +61,9 @@ These changes are made so that a conversion is reached in 1 step. So, the equati
 
 This also means that for grad(f(x_0)) = 0, there is trouble. In the case where x_0 sits in a maximum, saddle point or local minimum, there is no way to converge.
 
-Note: For more complex functions (for example, with a "hill" to the left of the valley when x_0 is to the left of both) it never converges in one step.
- 
+For more complex functions (for example, with a "hill" to the left of the valley when x_0 is to the left of both) it never converges in one step.
+
+
 2.2. Minimization of functions of more than one variable
 
 1 - Table 2
@@ -89,7 +97,7 @@ And, since that part of the function is the same for a = 2 and a = 20, the total
 Nevertheless, this behaviour begins to disappear for increasing etas since the width of the parabola in x_1 comes into play.
 For a narrower parabola (a = 20) larger step sizes make the algorithm diverge sooner than for a = 2, just as before.
 
-The minimum number of iterations for a = 2 occured with eta = 0.6 and 5 iterations were made.
+The minimum number of iterations for a = 2 occurred with eta = 0.6 and 5 iterations were made.
 For a = 20 it happened for eta = 0.092 and 44 iterations were made.
 
 For greater values of "a" (narrower valleys), the minimum number of iterations will be greater than for a wider counterpart.
@@ -100,9 +108,12 @@ Therefore, after the divergence of the a = 20 case, it is possible to further in
 To emphasize, a = 20 requires a smaller step size to converge to the narrow valley (x_1 direction) and then it has to "travel" in the x_2 direction with smaller steps (i.e. in more iterations).
 
 
+
 3 - No. It is not possible to reach the minimum in one iteration if the initial gradient is pointing in a different direction than that of the vector defined by the initial point (x1_0, x2_0) and the minimum.
 
+
 3. Momentum term
+
 
 1 - Table 3
 
@@ -140,7 +151,9 @@ This makes the oscillation disappear as, in the previous example,
 x_(n+1) would appear closer to the minimum (by a smaller distance than that of x_n).
 Obviously, divergences still occur for step sizes that are too large compared to the inertial term.
 
+
 4. Adaptive step sizes
+
 
 1 - Table 4
 
@@ -153,6 +166,7 @@ N. of tests	alpha |	eta ->		-20%	-10%	Best (eta=0.02)	+10%	+20%
 one gets 200+ iterations. Bearing in mind that the best eta was found to be 0.02, the referred percentage is a small value.
 This means that, only by deviating a few millesimals from the main value, the eta would be considered bad.
 Then, it is natural that it took some test until a satisfying eta value was found.
+
 
 3 - Table 5
 
@@ -167,6 +181,7 @@ eta	alpha = 0	alpha = 0.5	alpha = 0.7	alpha = 0.9	alpha = 0.95	alpha = 0.99
 1	522		305		169		135		132		123
 
 10	470		292		190		146		113		108
+
 
 
 4 - Table 6
