@@ -2,6 +2,33 @@
 
 2.1 Minimization of functions of one variable
 
+1 - Table 1
+
+eta		a = 0.5	a = 1	a = 2	a = 5
+
+0.001		>1000	>1000	>1000	990
+
+0.01		760	414	223	97
+
+0.03		252	137	73	31
+
+0.1		75	40	21	8
+
+0.3		24	12	5	8
+
+1		6	1	div*	div
+
+3		div	div	div	div
+
+Fastest		2	1	0.5	0.2
+
+Div Threshold	4	2	1	0.4
+
+
+Note: div* means that the threshold was found for this pair of values. The method is oscillating, not converging nor diverging.	
+
+
+
 2 - Observing Table 1, one can see that the relationship between a and eta is a = 1/eta.
 This can be proven by knowing that, with f = a*x^2/2, one has grad(f) = a*x.
 
@@ -9,15 +36,21 @@ From the iterative equation and knowing that the minimum value for this class of
 
 x_(n+1) = x_n - eta*a*x_n <=> 0 = x_n - eta*a*x_n <=> (with x_n != 0) eta*a = 1 <=> a = 1/eta, QED.
 
+
+
 3 - Again, by observing the values in Table 1, it is possible to state that the relation is a = 2/eta.
 This is proven by knowing that the algorithm diverges when the step size (|x_(n+1) - x_n|) is double the separation between x_n and the x corresponding to the function minimum (in this case x = 0).
 So, the threshold is defined when this limit starts:
 
 |x_(n+1) - x_n| = 2*x_n <=> |-eta*a*x_n| = 2*x_n <=> (with x_n != 0) a = 2/eta, QED
 
+
+
 4 - Other than the fastest conversion and divergence threshold values, it is visible that the step size eta is highly influential in the convergence of the method.
 An increase in the 2nd derivative of the function, naturally, makes it narrower and, thus, the method diverges for smaller step sizes.
 Moreover, it will converge faster for the smallest step size (eta = 0.001).
+
+
 
 5 - The fastest optimization occurs for 1 step.
 The condition for eta so that this happens for a function of one variable can be deduced by substituting:
@@ -28,9 +61,34 @@ These changes are made so that a conversion is reached in 1 step. So, the equati
 
 This also means that for grad(f(x_0)) = 0, there is trouble. In the case where x_0 sits in a maximum, saddle point or local minimum, there is no way to converge.
 
-Note: For more complex funtions (for example, with a "hill" to the left of the valley when x_0 is to the left of both) it never converges in one step.
- 
+For more complex functions (for example, with a "hill" to the left of the valley when x_0 is to the left of both) it never converges in one step.
+
+
 2.2. Minimization of functions of more than one variable
+
+1 - Table 2
+
+eta		a = 2	a = 20
+
+0.01		414	414
+
+0.03		137	137
+
+0.1		40	div*
+
+0.3		12	div
+
+1		div*	div
+
+3		div	div
+
+Fastest		0.6	0.092
+
+Div Threshold	1	0.1
+
+
+Note: div* means that the threshold was found for this pair of values. The method is oscillating, not converging nor diverging.	
+
 
 2 - It is visible in Table 2 that the amount of iterations for smaller step size is the same for both a = 2 and a = 20.
 This happens because the optimization algorithm for this function can be seen as an individual optimization in both directions (x_1 and x_2) which happen simultaneously.
@@ -39,7 +97,7 @@ And, since that part of the function is the same for a = 2 and a = 20, the total
 Nevertheless, this behaviour begins to disappear for increasing etas since the width of the parabola in x_1 comes into play.
 For a narrower parabola (a = 20) larger step sizes make the algorithm diverge sooner than for a = 2, just as before.
 
-The minimum number of iterations for a = 2 occured with eta = 0.6 and 5 iterations were made.
+The minimum number of iterations for a = 2 occurred with eta = 0.6 and 5 iterations were made.
 For a = 20 it happened for eta = 0.092 and 44 iterations were made.
 
 For greater values of "a" (narrower valleys), the minimum number of iterations will be greater than for a wider counterpart.
@@ -50,9 +108,38 @@ Therefore, after the divergence of the a = 20 case, it is possible to further in
 To emphasize, a = 20 requires a smaller step size to converge to the narrow valley (x_1 direction) and then it has to "travel" in the x_2 direction with smaller steps (i.e. in more iterations).
 
 
+
 3 - No. It is not possible to reach the minimum in one iteration if the initial gradient is pointing in a different direction than that of the vector defined by the initial point (x1_0, x2_0) and the minimum.
 
+
 3. Momentum term
+
+
+1 - Table 3
+
+eta		alpha = 0	alpha = 0.5	alpha = 0.7	alpha = 0.9	alpha = 0.95
+
+0.003		>1000		>1000		>1000		>1000		>1000
+
+0.01		414		411		406		382		338
+
+0.03		137		134		129		96		171
+
+0.1		div*		36		31		85		122
+
+0.3		div		div		31		67		148
+
+1		div		div		div		74		146
+
+3		div		div		div		div		172
+
+10		div		div		div		div		div
+
+Div Threshold	0.1		0.3		0.6		2		3.9
+
+
+Note: div* means that the threshold was found for this pair of values. The method is oscillating, not converging nor diverging.	
+
 
 2 - Greater values of alpha make the divergence threshold happen for greater step sizes.
 A justification for this is the dampening of oscillations that the momentum method imposes.
@@ -64,12 +151,58 @@ This makes the oscillation disappear as, in the previous example,
 x_(n+1) would appear closer to the minimum (by a smaller distance than that of x_n).
 Obviously, divergences still occur for step sizes that are too large compared to the inertial term.
 
+
 4. Adaptive step sizes
+
+
+1 - Table 4
+
+N. of tests	alpha |	eta ->		-20%	-10%	Best (eta=0.02)	+10%	+20%
+
+        14	0.9   |	N. iter ->	272	121	     41		216	239
+
 
 2 - As it can be seen in Table 4, by moving just 20% around the optimal eta (for the correspondent optimal alpha)
 one gets 200+ iterations. Bearing in mind that the best eta was found to be 0.02, the referred percentage is a small value.
-This means that, only by deviating a few milesimals from the main value, the eta would be considered bad.
+This means that, only by deviating a few millesimals from the main value, the eta would be considered bad.
 Then, it is natural that it took some test until a satisfying eta value was found.
+
+
+3 - Table 5
+
+eta	alpha = 0	alpha = 0.5	alpha = 0.7	alpha = 0.9	alpha = 0.95	alpha = 0.99
+
+0.001	401		215		171		101		160		158
+
+0.01	384		201		168		165		145		139
+
+0.1	575		306		159		149		138		144
+
+1	522		305		169		135		132		123
+
+10	470		292		190		146		113		108
+
+
+
+4 - Table 6
+					N. of tests	    eta		alpha	N. of iterations
+
+						           -10%				398
+
+Without adaptive step sizes		      15      final eta = 0.018	 0.95		77
+
+							   +10%				229
+
+------------------------------------------------------------------------------------------------
+
+							   -10%				297
+
+With adaptive step sizes		       8      final eta = 0.03	 0.99		221
+
+							   +10%				239
+
+
+
 
 5. Final Remarks
 
