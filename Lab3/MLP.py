@@ -8,6 +8,7 @@ from keras import Sequential
 from keras import optimizers as optimizer
 from keras.callbacks import EarlyStopping
 
+#LOADING AND TREATING DATA
 x_train = np.load('mnist_train_data.npy')
 y_train = np.load('mnist_train_labels.npy')
 
@@ -44,8 +45,8 @@ print(model.summary())
 
 earlyStopping = [EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)]
 model.compile(loss='categorical_crossentropy', optimizer=optimizer.Adam(lr = 0.01, clipnorm = 1))
-#history = model.fit(X_train, Y_train, batch_size=300, epochs=400, callbacks=earlyStopping, validation_data=(X_val, Y_val))
-history = model.fit(X_train, Y_train, batch_size=300, epochs=400, validation_data=(X_val, Y_val))
+history = model.fit(X_train, Y_train, batch_size=300, epochs=400, callbacks=earlyStopping, validation_data=(X_val, Y_val))
+#history = model.fit(X_train, Y_train, batch_size=300, epochs=400, validation_data=(X_val, Y_val)) #without early stopping
 
 #print(history.history.keys())
 plt.plot(history.history['loss'], label="Training Loss")
