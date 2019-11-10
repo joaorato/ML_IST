@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import multivariate_normal
+from sklearn.metrics import accuracy_score
 x_train = np.load("data1_xtrain.npy")
 y_train = np.load("data1_ytrain.npy")
 
@@ -41,21 +42,21 @@ x_train_var1_class2 = np.var(x_train[50:100,1])
 x_train_mean1_class3 = np.mean(x_train[100:150,1])
 x_train_var1_class3 = np.var(x_train[100:150,1])
 
-x_normal0_class1 = multivariate_normal.pdf(np.sort(x_test[:,0]), mean=x_train_mean0_class1, cov=x_train_var0_class1)
-x_normal0_class2 = multivariate_normal.pdf(np.sort(x_test[:,0]), mean=x_train_mean0_class2, cov=x_train_var0_class2)
-x_normal0_class3 = multivariate_normal.pdf(np.sort(x_test[:,0]), mean=x_train_mean0_class3, cov=x_train_var0_class3)
+x_normal0_class1 = multivariate_normal.pdf(x_test[:,0], mean=x_train_mean0_class1, cov=x_train_var0_class1)
+x_normal0_class2 = multivariate_normal.pdf(x_test[:,0], mean=x_train_mean0_class2, cov=x_train_var0_class2)
+x_normal0_class3 = multivariate_normal.pdf(x_test[:,0], mean=x_train_mean0_class3, cov=x_train_var0_class3)
 
-x_normal1_class1 = multivariate_normal.pdf(np.sort(x_test[:,1]), mean=x_train_mean1_class1, cov=x_train_var1_class1)
-x_normal1_class2 = multivariate_normal.pdf(np.sort(x_test[:,1]), mean=x_train_mean1_class2, cov=x_train_var1_class2)
-x_normal1_class3 = multivariate_normal.pdf(np.sort(x_test[:,1]), mean=x_train_mean1_class3, cov=x_train_var1_class3)
+x_normal1_class1 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class1, cov=x_train_var1_class1)
+x_normal1_class2 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class2, cov=x_train_var1_class2)
+x_normal1_class3 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class3, cov=x_train_var1_class3)
 
-# plt.plot(np.sort(x_test[:,0]), x_normal0_class1)
-# plt.plot(np.sort(x_test[:,0]), x_normal0_class2)
-# plt.plot(np.sort(x_test[:,0]), x_normal0_class3)
-# plt.plot(np.sort(x_test[:,1]), x_normal1_class1)
-# plt.plot(np.sort(x_test[:,1]), x_normal1_class2)
-# plt.plot(np.sort(x_test[:,1]), x_normal1_class3)
-# plt.show()
+plt.plot(x_test[:,0], x_normal0_class1, 'o')
+plt.plot(x_test[:,0], x_normal0_class2, 'o')
+plt.plot(x_test[:,0], x_normal0_class3, 'o')
+plt.plot(x_test[:,1], x_normal1_class1, 'o')
+plt.plot(x_test[:,1], x_normal1_class2, 'o')
+plt.plot(x_test[:,1], x_normal1_class3, 'o')
+plt.show()
 
 chosen_class = np.zeros((150))
 
@@ -65,4 +66,4 @@ for i in range(150):
 plt.plot(np.linspace(0, 150, 150, endpoint=False), chosen_class)
 plt.show()
 
-print(y_test)
+print('accuracy = ', accuracy_score(y_test, chosen_class))
