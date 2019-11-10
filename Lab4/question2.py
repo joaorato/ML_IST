@@ -9,20 +9,20 @@ x_test = np.load("data1_xtest.npy")
 y_test = np.load("data1_ytest.npy")
 
 #UNCOMMENT FOR SCATTER PLOT
-# plt.figure(1)
-# plt.scatter(x_train[:50,0], x_train[:50,1], c='red', label='Class 1 train')
-# plt.scatter(x_train[50:100,0], x_train[50:100,1], c='blue', label='Class 2 train')
-# plt.scatter(x_train[100:150,0], x_train[100:150,1], c='green', label='Class 3 train')
+plt.figure(1)
+plt.scatter(x_train[:50,0], x_train[:50,1], c='red', label='Class 1 train')
+plt.scatter(x_train[50:100,0], x_train[50:100,1], c='blue', label='Class 2 train')
+plt.scatter(x_train[100:150,0], x_train[100:150,1], c='green', label='Class 3 train')
 
-# plt.scatter(x_test[:50,0], x_test[:50,1], c='orange', label='Class 1 test')
-# plt.scatter(x_test[50:100,0], x_test[50:100,1], c='purple', label='Class 2 test')
-# plt.scatter(x_test[100:150,0], x_test[100:150,1], c='yellow', label='Class 3 test')
+plt.scatter(x_test[:50,0], x_test[:50,1], c='orange', label='Class 1 test')
+plt.scatter(x_test[50:100,0], x_test[50:100,1], c='purple', label='Class 2 test')
+plt.scatter(x_test[100:150,0], x_test[100:150,1], c='yellow', label='Class 3 test')
 
-# plt.xlim(-4, 7.5)
-# plt.ylim(-4, 7.5)
-# plt.legend()
+plt.xlim(-4, 7.5)
+plt.ylim(-4, 7.5)
+plt.legend()
 
-# plt.show()
+plt.show()
 
 x_train_mean0_class1 = np.mean(x_train[:50,0])
 x_train_var0_class1 = np.var(x_train[:50,0])
@@ -50,13 +50,13 @@ x_normal1_class1 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class
 x_normal1_class2 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class2, cov=x_train_var1_class2)
 x_normal1_class3 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class3, cov=x_train_var1_class3)
 
-plt.plot(x_test[:,0], x_normal0_class1, 'o')
-plt.plot(x_test[:,0], x_normal0_class2, 'o')
-plt.plot(x_test[:,0], x_normal0_class3, 'o')
-plt.plot(x_test[:,1], x_normal1_class1, 'o')
-plt.plot(x_test[:,1], x_normal1_class2, 'o')
-plt.plot(x_test[:,1], x_normal1_class3, 'o')
-plt.show()
+# plt.plot(x_test[:,0], x_normal0_class1, 'o')
+# plt.plot(x_test[:,0], x_normal0_class2, 'o')
+# plt.plot(x_test[:,0], x_normal0_class3, 'o')
+# plt.plot(x_test[:,1], x_normal1_class1, 'o')
+# plt.plot(x_test[:,1], x_normal1_class2, 'o')
+# plt.plot(x_test[:,1], x_normal1_class3, 'o')
+# plt.show()
 
 chosen_class = np.zeros((150))
 
