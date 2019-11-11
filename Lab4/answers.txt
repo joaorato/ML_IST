@@ -1,0 +1,22 @@
+1. 
+The Naive Bayes classifiers are based on Bayes' Theorem, which finds the probability of an event (for example, A) occurring, knowing beforehand that another event (for example, B, whose probability we also know) has also occurred. It can be stated as follows:
+
+P(A|B) = P(B|A) * P(A) / P(B)
+
+Where P(A) in the right hand side is the probability of A happening without knowing anything (i.e., before any evidence of B is seen)
+
+If we want to classify data, then we want A to be our classification output, or label, and B to be the input features. As such, in general, we will have 
+
+A -> y  and B -> X = (x_1, ..., x_n), where n is the number of features. We then have:
+
+P(y|x_1, ..., x_n) = P(x_1, ..., x_n|y) * P(y) / P(x_1, ..., x_n)
+
+However, the method is called Naive Bayes since one actually makes a naive assumption about the data and applies it to the Bayes' Theorem. This assumption is that all the features are independent. Recall that, if A and B are independent, then P(A && B) = P(A) * P(B). Hence, we can rewrite the previous equation:
+
+P(y|x_1, ..., x_n) = P(x_1|y) * ... * P(x_n|y) * P(y) / (P(x_1) * ... * P(x_n))
+
+Since the denominator P(x_1) * ... * P(x_n) is the same for all inputs and we only want to compare probabilities, we can remove it:
+
+P(y|x_1, ..., x_n) is proportional to P(y) * P(x_1|y) * ... * P(x_n|y)
+
+And, as such, the classifier prediction is the label y that maximizes the above expression, where the distributions used to calculate the probabilities on the right hand side are obtained from the training data.
