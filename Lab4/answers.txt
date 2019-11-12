@@ -29,6 +29,9 @@ Furthermore, the points that are wrongly predicted can be explained by their pro
 This can be confirmed when drawing the scatter plot of both the training and test sets.
 Moreover, it is also observable in the "test class vs index" plot that there is a greater confusion between classes 1 and 3.
 
+Note: In this case, prior probabilities are the same since the sets are composed of 150 values with 50 for each class (p(y) = 1/3),
+so there's no need to use p(y) to calculate the predictions. This would, of course, need to be changed if another set were to be used.
+
 3.2.2.6.
 
 Text                                        Real Language   Recognized Language       Score      Classification margin
@@ -42,10 +45,13 @@ Tu vas au cinéma demain matin.                   fr                  fr        
 3.2.2.7.
 
 Out of the 6 sentences, 4 were correctly classified.
-Looking at the table above, we can confirm that these correspond to the ones with highest score and classification margin.
+Looking at the table above, we can confirm that these correspond to the ones with highest score and classification margin (close to 1).
 Furthermore, the two times that the classifier failed happened for portuguese senteces.
-In the first case, french had a score of around 0.8 and portuguese of 0.2, being the only 2 meaningful languages considered by the classifier.
+In the first case, french had a score of around 0.8 and portuguese of 0.2 (concluded from the classification margin),
+being the only 2 meaningful languages considered by the classifier.
 The third sentence adds some words to the last one ("pois já estás melhor").
-This is enough for the classifier to be sure that the language is portuguese and not french, since these last words are composed of trigrams that are much more common in portuguese
+This is enough for the classifier to be sure that the language is portuguese and not french,
+since these last words are composed of trigrams that are much more common in portuguese
 (for example, the use of "lh", present in "elh" and "lho" is very specific to portuguese).
-In the last case, spanish and portuguese had close scores (around 0.5) which showcases that, overall, these trigrams coexist in both languages, since they are fairly similar
+In the last case, spanish and portuguese had close scores (both around 0.5, again by looking at the classification margin)
+which showcases that, overall, these trigrams coexist in both languages, since they are fairly similar
