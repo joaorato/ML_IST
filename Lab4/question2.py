@@ -61,6 +61,8 @@ x_normal1_class3 = multivariate_normal.pdf(x_test[:,1], mean=x_train_mean1_class
 chosen_class = np.zeros((150))
 
 for i in range(150):
+    # in this case, prior probabilities are the same since the sets are composed of 150 values with 50 for each class (p(y) = 1/3),
+    # so there's no need to use p(y) to calculate the predictions.
     chosen_class[i] = 1 + np.argmax([x_normal0_class1[i]*x_normal1_class1[i], x_normal0_class2[i]*x_normal1_class2[i], x_normal0_class3[i]*x_normal1_class3[i]])
 
 plt.plot(np.linspace(0, 150, 150, endpoint=False), chosen_class)

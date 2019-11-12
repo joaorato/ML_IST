@@ -36,7 +36,7 @@ y_test = np.array(['es', 'pt', 'pt', 'en', 'fr', 'pt'])
 
 print('Predictions: ', nb.predict(X_test), 'Real: ', y_test)
 probs_sorted = np.sort(nb.predict_proba(X_test))
-#print(probs_sorted)
+print("Score (sorted): \n", probs_sorted)
 class_margin = [probs_sorted[0,-1]-probs_sorted[0,-2],\
                 probs_sorted[1,-1]-probs_sorted[1,-2],\
                 probs_sorted[2,-1]-probs_sorted[2,-2],\

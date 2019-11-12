@@ -20,3 +20,32 @@ Since the denominator P(x_1) * ... * P(x_n) is the same for all inputs and we on
 P(y|x_1, ..., x_n) is proportional to P(y) * P(x_1|y) * ... * P(x_n|y)
 
 And, as such, the classifier prediction is the label y that maximizes the above expression, where the distributions used to calculate the probabilities on the right hand side are obtained from the training data.
+
+2.6.
+
+By looking at the class predictions plot one can see that, overall, the model is effective, with an accuracy score of 0.947.
+The plot showcases 3 levels with two steps inbetween, with the order being: Class 1, Class 2 and Class 3.
+Furthermore, the points that are wrongly predicted can be explained by their proximity to training points of other classes.
+This can be confirmed when drawing the scatter plot of both the training and test sets.
+Moreover, it is also observable in the "test class vs index" plot that there is a greater confusion between classes 1 and 3.
+
+3.2.2.6.
+
+Text                                        Real Language   Recognized Language       Score      Classification margin
+El cine esta abierto.                            es                  es              0.9998             0.9996
+Tu vais à escola hoje.                           pt                  fr              0.7931             0.5861
+Tu vais à escola hoje, pois já estás melhor.     pt                  pt                 1                  1
+English is easy to learn.                        en                  en                 1                  1
+Tu vas au cinéma demain matin.                   fr                  fr              0.999999           0.999998
+É fácil de entender.                             pt                  es              0.5484             0.096732
+
+3.2.2.7.
+
+Out of the 6 sentences, 4 were correctly classified.
+Looking at the table above, we can confirm that these correspond to the ones with highest score and classification margin.
+Furthermore, the two times that the classifier failed happened for portuguese senteces.
+In the first case, french had a score of around 0.8 and portuguese of 0.2, being the only 2 meaningful languages considered by the classifier.
+The third sentence adds some words to the last one ("pois já estás melhor").
+This is enough for the classifier to be sure that the language is portuguese and not french, since these last words are composed of trigrams that are much more common in portuguese
+(for example, the use of "lh", present in "elh" and "lho" is very specific to portuguese).
+In the last case, spanish and portuguese had close scores (around 0.5) which showcases that, overall, these trigrams coexist in both languages, since they are fairly similar
