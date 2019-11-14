@@ -1,0 +1,32 @@
+1.4.
+
+1. Early Stopping is a way to stop the training process prior to overfitting. The idea is to compute the validation loss in each iteration, so that
+if it is bigger that it has been in a previous iteration, the patience starts to be taken into account. Since it was set to 15, this means that if
+15 iterations go by in which the validation loss is higher than that minimum, then the training stops and the parameter values corresponding
+to the lowest validation loss are selected (this is the purpose of the 'restore_best_weights' argument).
+
+2. With Early Stopping, the MLP takes around 21 epochs to train (15 of which correspond to patience, so it actually takes around 6). 
+We obtain a test set accuracy close to 93%, with a confusion matrix that is mostly diagonal with only a few small non diagonal elements.
+
+Without Early stopping, the execution time is evidently longer, since all the 400 epochs are computed. This also means that the model will be overfitted,
+since we know from the Early stopping that around 6 epochs would be enough. This is backed by the fact that the training loss without Early stopping is
+of the order of 1e-6, with a validation loss of ~ 0.7 whereas with Early Stopping we obtain a training loss of the order of 1e-3, with a validation loss
+of ~0.4. 
+This doesn't seem to be problematic for this specific case, since we obtain very similiar accuracies, and even a slightly better
+(more diagonal) confusion matrix. This is due to the fact that all the possible scenarios are contained in the training set (since a single number can only
+be written in a few ways) and, as such, overfitting the data means that, for each case in the test set, the model will know with more precision which label 
+it corresponds to. However, since the improvement in the performance is not that significative, it is still an acceptable choice to use Early Stopping since 
+it drastically reduces the execution time.
+
+In both cases, the losses evolve as expected, with the training loss decreasing with each epoch and assimptotically going 
+to zero, whereas the validation loss reaches a minimum around the mentioned 6 epochs, and goes slightly up from there until it reaches a plateau.
+
+
+3. As expected, the CNN's accuracy is better, being close to 97%, with an almost diagonal confusion matrix. It requires around 24 epochs to run. Taking the
+patience into account, this translates to about 9 effective iterations, which is slightly more than the MLP. Moreover, each epoch takes around 10x more
+time to run, being ~300 micro seconds to complete an epoch in the CNN and ~30 in the MLP, which is a consequence of the CNN being a deeper network. The MLP
+does have slightly more parameters, 59850 in total, compared to the 56714 in the CNN. This means that with less parameters, even though it is a deeper network,
+the CNN achieves a better performance.
+
+The parameter amount of both models is similar. Even though the MLP consists of fully connected layers (which naturally yield more parameters), the fact that the
+CNN is deeper makes up for the reduction in the number of connections (and consequently, parameters) in each layer.
