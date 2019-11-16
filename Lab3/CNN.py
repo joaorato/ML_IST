@@ -60,7 +60,12 @@ plt.show()
 
 y_predicted = model.predict(x_test)
 
-accuracy = sklearn.metrics.accuracy_score(y_test_matrix, y_predicted.round())
+for i in range(500):
+    index = y_predicted[i].argmax()
+    y_predicted[i] = [0,0,0,0,0,0,0,0,0,0]
+    y_predicted[i,index] = 1
+
+accuracy = sklearn.metrics.accuracy_score(y_test_matrix, y_predicted)
 print("accuracy = ", accuracy)
 conf_matrix = sklearn.metrics.confusion_matrix(y_test_matrix.argmax(axis=1), y_predicted.argmax(axis=1))
 print("Confusion matrix : \n", conf_matrix)
