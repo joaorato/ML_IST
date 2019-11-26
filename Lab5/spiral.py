@@ -8,7 +8,7 @@ spiral_y = np.load('spiral_Y.npy')
 
 ### Polynomial classifier ###
 
-accuracy = {}
+""" accuracy = {}
 support_vec = {}
 for i in range(10):
     classifier = SVC(max_iter = 100000, kernel = 'poly', degree = float(i/2 + 1))
@@ -27,11 +27,11 @@ classifier_2 = SVC(max_iter = 100000, kernel = 'poly', degree = 2)
 classifier_2.fit(spiral_x, spiral_y)
 print(accuracy_score(spiral_y, classifier_2.predict(spiral_x)))
 plot_contours(clf = classifier_2, points = spiral_x)
-
+ """
 
 ### Gaussian RBF Classifier ###
-"""
-gauss_classifier = SVC(max_iter = 100000, kernel = 'rbf', gamma = 1)
+
+gauss_classifier = SVC(max_iter = 100000, kernel = 'rbf', gamma = 0.01)
 gauss_classifier.fit(spiral_x, spiral_y)
-print(accuracy_score(spiral_y, gauss_classifier.predict(spiral_x)))
-plot_contours(clf = gauss_classifier, points = spiral_x) """
+print(accuracy_score(spiral_y, gauss_classifier.predict(spiral_x)), '   ', len(gauss_classifier.support_vectors_))
+plot_contours(clf = gauss_classifier, points = spiral_x) 
