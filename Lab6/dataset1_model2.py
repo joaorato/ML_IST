@@ -26,4 +26,6 @@ y_test = np.load("dataset1_ytest.npy")
 gauss_classifier = SVC(max_iter = 100000, C = 1300, kernel = 'rbf', gamma = 0.0003) #this was found to be the best value for C and gamma
 gauss_classifier.fit(x_train, y_train.ravel())
 print(accuracy_score(y_test, gauss_classifier.predict(x_test)), '   ', len(gauss_classifier.support_vectors_))
+#FALTA MAIS UM CRITERIO DE PERFORMANCE EVALUATION
+
 #plot_contours(clf = gauss_classifier, points = x_test) doesn't work because it is 17-dimensional

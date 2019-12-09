@@ -17,7 +17,7 @@ y_test = np.load("dataset1_ytest.npy")
 train_instances = x_train.shape[0]
 test_instances = x_test.shape[0]
 features = x_train.shape[1]
-class_dimentions = y_train.shape[1]
+class_dimensions = y_train.shape[1]
 
 
 #THIS NEXT BLOCK COUNTS HOW MANY PATTERNS THERE ARE IN EACH CLASS
@@ -36,10 +36,10 @@ for i in range(train_instances):
 # since the set is fairly balanced, a BAYES CLASSIFIER can be tried out. The next block separates the data by class
 
 x_train_class0 = np.zeros((zeroCounter, features))
-y_train_class0 = np.zeros((zeroCounter, class_dimentions))
+y_train_class0 = np.zeros((zeroCounter, class_dimensions))
 
 x_train_class1 = np.zeros((oneCounter, features))
-y_train_class1 = np.ones((oneCounter, class_dimentions))
+y_train_class1 = np.ones((oneCounter, class_dimensions))
 
 j = 0
 k = 0
