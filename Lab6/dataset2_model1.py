@@ -6,10 +6,10 @@ from scipy.stats import multivariate_normal
 from sklearn.metrics import (
     accuracy_score, balanced_accuracy_score, f1_score, roc_curve, confusion_matrix)
 
-x_train = np.load("dataset1_xtrain.npy")
-y_train = np.load("dataset1_ytrain.npy")
-x_test = np.load("dataset1_xtest.npy")
-y_test = np.load("dataset1_ytest.npy")
+x_train = np.load("dataset2_xtrain.npy")
+y_train = np.load("dataset2_ytrain.npy")
+x_test = np.load("dataset2_xtest.npy")
+y_test = np.load("dataset2_ytest.npy")
 
 #print(x_train.shape, y_train.shape) #(921, 17) -> (921, 1)
 #print(x_test.shape, y_test.shape) #(230, 17) -> (230, 1)
@@ -76,7 +76,7 @@ for i in range(features):
     x_normal_class1[i] = multivariate_normal.pdf(x_test[:,i], mean=x_train_class1_mean[i], cov=x_train_class1_var[i])
 
 plt.figure(1)
-plt.plot(x_test[:,16], x_normal_class0[16], 'o')
+plt.plot(x_test[:,9], x_normal_class0[9], 'o')
 #plt.plot(x_test[:,0], x_normal_class1[0], 'o')
 plt.show()
 
@@ -106,10 +106,10 @@ plt.show()
 print('accuracy = ', accuracy_score(y_test, chosen_class))
 print('confusion matrix:\n', confusion_matrix(y_test, chosen_class))
 
-# print('balanced accuracy = ', balanced_accuracy_score(y_test, chosen_class))
-# print('f measure = ', f1_score(y_test, chosen_class))
-# fpr, tpr, thresholds = roc_curve(y_test, chosen_class)
+print('balanced accuracy = ', balanced_accuracy_score(y_test, chosen_class))
+print('f measure = ', f1_score(y_test, chosen_class))
+fpr, tpr, thresholds = roc_curve(y_test, chosen_class)
 
-# plt.figure(2)
-# plt.plot(fpr, tpr, 'o')
-# plt.show()
+plt.figure(3)
+plt.plot(fpr, tpr)
+plt.show()
