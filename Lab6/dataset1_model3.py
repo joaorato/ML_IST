@@ -1,7 +1,7 @@
 #DECISION TREE
 
 import numpy as np
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import GridSearchCV
 
@@ -20,6 +20,7 @@ decisionTree.fit(x_train, y_train.ravel())
 y_predicted = decisionTree.predict(x_test)
 print('max depth: ', decisionTree.get_depth())
 print('accuracy: ', decisionTree.score(x_test, y_test.ravel()))
+print('confusion matrix\n', confusion_matrix(y_test, y_predicted))
 
 parameters = {'max_depth':[5, 10, features, 22, 25, 30]}
 decisionTree = DecisionTreeClassifier(criterion='entropy')

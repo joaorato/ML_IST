@@ -3,6 +3,7 @@
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import confusion_matrix
 
 x_train = np.load('dataset1_xtrain.npy')
 y_train = np.load("dataset1_ytrain.npy")
@@ -15,6 +16,7 @@ kNeigh.fit(x_train, y_train)
 accuracy = kNeigh.score(x_test, y_test)
 
 print(accuracy)
+print('confusion matrix\n', confusion_matrix(y_test, kNeigh.predict(x_test)))
 
 parameters = {'n_neighbors':[1, 5, 10, 15, 20, 25, 30, 50, 75, 100]}
 kNeigh = KNeighborsClassifier()
