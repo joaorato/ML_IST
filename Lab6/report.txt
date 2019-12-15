@@ -1,0 +1,146 @@
+First of all, it is important to point out that the imbalanced set is the second one,
+where there are 71 instances of class 0 and 160 of class 1.
+This means that only about 30% of the data set includes patterns assigned to class 0.
+That does not happen in the first set, where 47% belongs to class 0.
+
+Classifying Data set 1:
+
+Model 1 - Bayes:
+
+We first chose to classify the data using the Naïve Bayes formalism since we were dealing with a relatively high number of features (17),
+even though NB is most effective for text based data sets.
+
+The end results were not the best. The accuracy was 0.57 and the confusion matrix:
+[[103  5]
+[95 27]]
+
+From this, we see that most errors come from wrongly classified patterns from class 1 into class 0 (bottom left element).
+
+Model 2 - SVM:
+
+Next up, SVM was considered for its common use in binary classifications.
+Both linear and Gaussian kernels were used and the results were substantially better than before.
+
+For the linear case, a maximum number of iterations of 500000 was used and the accuracy was 0.77 with the confusion matrix being:
+[[87  21]
+[32 90]]
+
+The same pattern remains, where most errors come from wrongly classified patterns from class 1 into class 0 (bottom left element),
+whilst being way more balanced.
+
+The number of support vectors was 497 which is high.
+
+The Gaussian kernel performed a bit worse, using 200000 for the maximum number of iterations and gamma = 0.0003 (through trial and error),
+with an accuracy of 0.73 and confusion matrix:
+[[83  25]
+[37 85]]
+
+There were 468 support vectors in this case.
+
+Model 3 - Decision Tree:
+
+Next, Decision trees were considered, in the search for better performances.
+
+The impurity criterion was the entropy and the results were:
+accuracy = 0.71
+confusion matrix = 
+[[70  38]
+[28 94]]
+
+Here, the model makes more mistakes when predicting class 0 members as class 1 (upper right element), unlike the previous models. 
+
+Model 4 - MLP:
+
+Next, an MLP was considered. It was heavily based on the MLP used in a previous Lab, but without the Flatten layer,
+since we were dealing with 1-D inputs. The model was composed of 3 dense layers, with 64, 128 and 2 outputs respectively,
+with Relu activation functions after the first two layers and softmax after the last one.
+
+The hyperparameters were chosen by trial and error based on the performance.
+A validation set was created from the training set as to limit the training procedure through the validation loss.
+The Adam optimizer's learning rate used was 0.0001, the batch size was 100 and the patience was set to 15.
+The results were a bit better than before, but still similar.
+
+After 106 epochs of training, the accuracy was 0.73 and the confusion matrix:
+[[79 29]
+ [34 88]]
+
+Model 5 - k-Neighbours:
+
+Finally,
+
+A k-Neighbours approach was used, with 25 neighbours (also found through trial and error).
+The final results showed an accuracy of 0.70 and the following confusion matrix:
+ [[84 24]
+ [44 78]]
+
+Classifying Data set 2:
+
+As stated before, this set was more imbalanced than the previous one. Since we tried 5 models beforehand,
+it made sense to try the same type of models with this set, even though the data sets are independent.
+
+This time, the performance metrics used were the balanced accuracy, confusion matrix, f score and ROC curve,
+since it's better suited for imbalanced sets.
+
+Model 1 - Bayes:
+
+The results were:
+
+confusion matrix:
+ [[27  4]
+ [30 38]]
+balanced accuracy =  0.71
+f measure =  0.69
+
+The ROC curve was found to be above the diagonal, which is positive.
+
+Model 2 - SVM:
+
+The iterations number used was 100000 for both kernels.
+
+Linear
+
+Support Vectors:  97
+balanced accuracy =  0.73
+f measure =  0.76
+Confusion matrix : 
+ [[24  7]
+ [22 46]]
+
+Gauss
+
+Support Vectors:  231
+balanced accuracy =  0.5
+f measure =  0.81
+Confusion matrix :
+ [[ 0 31]
+ [ 0 68]]
+
+The Gauss method output strange results, as it can be seen in the confusion matrix.
+It predicted all instances in the same class.
+Thus, yet again, the Linear case was better
+
+Model 3 - Decision Tree:
+
+Balanced accuracy:  0.75
+f measure =  0.82
+Confusion matrix :
+ [[22  9]
+ [14 54]]
+
+Model 4 - MLP:
+
+We didn't manage to build an MLP that would output satisfying results for this set.
+In the trainging, both the validation and training loss were too large (order of 10) and never managed to decrease.
+This will be addressed in the future, for the report, if needed.  
+
+Model 5 - k-Neighbours:
+
+This model was the best in terms of performance. With 25 neighbours the results were:
+
+Balanced accuracy:  0.83
+f measure =  0.89
+Confusion matrix :
+ [[24  7]
+ [ 8 60]]
+
+ The off-diagonal terms are smaller than the ones before.

@@ -11,8 +11,8 @@ y_train = np.load("dataset2_ytrain.npy")
 x_test = np.load("dataset2_xtest.npy")
 y_test = np.load("dataset2_ytest.npy")
 
-#print(x_train.shape, y_train.shape) #(921, 17) -> (921, 1)
-#print(x_test.shape, y_test.shape) #(230, 17) -> (230, 1)
+print(x_train.shape, y_train.shape) #(231, 10) -> (231, 1)
+print(x_test.shape, y_test.shape) #(99, 10) -> (99, 1)
 
 train_instances = x_train.shape[0]
 test_instances = x_test.shape[0]
@@ -31,9 +31,7 @@ for i in range(train_instances):
     elif y_train[i] == 1:
         oneCounter += 1
 
-# print("zeros: ", zeroCounter, "\nones: ", oneCounter) #train: 432 zeros and 489 ones; test: 108 zeros and 122 ones
-
-# since the set is fairly balanced, a BAYES CLASSIFIER can be tried out. The next block separates the data by class
+print("zeros: ", zeroCounter, "\nones: ", oneCounter) #train: 71 zeros and 160 ones; test: 31 zeros and 68 ones
 
 x_train_class0 = np.zeros((zeroCounter, features))
 y_train_class0 = np.zeros((zeroCounter, class_dimensions))

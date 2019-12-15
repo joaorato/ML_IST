@@ -19,6 +19,8 @@ print('Accuracy: ', accuracy_score(y_test, prediction))
 print('Support Vectors: ', len(classifier.support_vectors_))
 print('balanced accuracy = ', balanced_accuracy_score(y_test, prediction))
 print('f measure = ', f1_score(y_test, prediction))
+conf_matrix = confusion_matrix(y_test, prediction)
+print("Confusion matrix : \n", conf_matrix)
 fpr, tpr, thresholds = roc_curve(y_test, prediction)
 
 plt.figure(1)

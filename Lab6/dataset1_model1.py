@@ -19,7 +19,6 @@ test_instances = x_test.shape[0]
 features = x_train.shape[1]
 class_dimensions = y_train.shape[1]
 
-
 #THIS NEXT BLOCK COUNTS HOW MANY PATTERNS THERE ARE IN EACH CLASS
 
 zeroCounter = 0
