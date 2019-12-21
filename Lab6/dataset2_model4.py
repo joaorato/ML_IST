@@ -10,6 +10,8 @@ from keras import Sequential
 from keras import optimizers as optimizer
 from keras.callbacks import EarlyStopping
 
+import scikitplot as skplt
+
 #LOADING AND TREATING DATA
 x_train = np.load('dataset2_xtrain.npy')
 y_train = np.load('dataset2_ytrain.npy')
@@ -31,16 +33,23 @@ print(X_train.shape)
 
 model = Sequential()
 model.add(layer.Dense(64, input_dim = features, activation='relu'))
-model.add(layer.Dense(128, activation='relu'))
-model.add(layer.Dropout(0.2))
+model.add(layer.Dense(128, activation='tanh'))
+model.add(layer.Dropout(0.3))
+model.add(layer.Dense(256, activation='tanh'))
+model.add(layer.Dropout(0.3))
+#model.add(layer.Dense(512, activation='tanh'))
+#model.add(layer.Dense(1024, activation='relu'))
+#model.add(layer.Dense(512, activation='relu'))
+model.add(layer.Dense(256, activation='tanh'))
+model.add(layer.Dropout(0.3))
 model.add(layer.Dense(2, activation='softmax'))
 
 print(model.summary())
 
 earlyStopping = [EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)]
 model.compile(loss='categorical_crossentropy', optimizer=optimizer.Adam(lr = 0.001, clipnorm = 1))
-#history = model.fit(X_train, Y_train, epochs=400, callbacks=earlyStopping, validation_data=(X_val, Y_val))
-history = model.fit(X_train, Y_train, batch_size=50, epochs=400, validation_data=(X_val, Y_val)) #without early stopping
+history = model.fit(X_train, Y_train, epochs=400, callbacks=earlyStopping, validation_data=(X_val, Y_val))
+#history = model.fit(X_train, Y_train, batch_size=50, epochs=400, validation_data=(X_val, Y_val)) #without early stopping
 
 #print(history.history.keys())
 plt.figure(1)
@@ -64,9 +73,13 @@ print('Balanced accuracy: ', balanced_accuracy_score(y_test_matrix.argmax(axis=1
 print('f measure = ', f1_score(y_test_matrix.argmax(axis=1), y_predicted.argmax(axis=1)))
 conf_matrix = confusion_matrix(y_test_matrix.argmax(axis=1), y_predicted.argmax(axis=1))
 print("Confusion matrix : \n", conf_matrix)
-fpr, tpr, thresholds = roc_curve(y_test_matrix.argmax(axis=1), y_predicted.argmax(axis=1))
+
+skplt.metrics.plot_roc(y_test, model.predict_proba(x_test), plot_macro=False, plot_micro=False, classes_to_plot=[1])
+plt.show()
+
+""" fpr, tpr, thresholds = roc_curve(y_test_matrix.argmax(axis=1), y_predicted.argmax(axis=1))
 
 plt.figure(2)
 plt.plot(fpr, tpr)
-plt.show()
+plt.show() """
 
