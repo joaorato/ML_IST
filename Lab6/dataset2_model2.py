@@ -6,7 +6,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import (accuracy_score, balanced_accuracy_score, f1_score, roc_curve, confusion_matrix)
 import matplotlib.pyplot as plt
 
-from imblearn.over_sampling import SMOTE
+from imblearn.over_sampling import SMOTE, RandomOverSampler
 
 x_train = np.load('dataset2_xtrain.npy')
 y_train = np.load("dataset2_ytrain.npy")
@@ -22,15 +22,19 @@ lin_balanced_acc = []
 lin_fscore = []
 lin_conf_matrix = np.array([[0,0],[0,0]])
 
+oversampler = RandomOverSampler(random_state=1)
+#oversampler = SMOTE(k_neighbors=5 ,random_state=1)
 
 y_train = np.ravel(y_train)
 y_test = np.ravel(y_test)
 for train_index, val_index in kfold.split(x_train, y_train):
     X_fold_train, X_fold_val = x_train[train_index, :], x_train[val_index, :]
     y_fold_train, y_fold_val = y_train[train_index], y_train[val_index]
+    
     # Oversample fold_train here (use imbalanced-learn library)
+    X_fold_train_resampled, y_fold_train_resampled = oversampler.fit_resample(X_fold_train, y_fold_train)
 
-    lin_classifier.fit(X_fold_train, y_fold_train)
+    lin_classifier.fit(X_fold_train_resampled, y_fold_train_resampled)
     prediction = lin_classifier.predict(X_fold_val)
 
     lin_conf_matrix += confusion_matrix(y_fold_val, prediction)
